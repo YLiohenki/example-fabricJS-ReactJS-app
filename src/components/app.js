@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 import UploadImage from './uploadImage/uploadImage';
+import DownloadImage from './downloadImage/downloadImage';
 import CanvasManager from './canvasManager/canvasManager';
 import Filters from './filters/filters';
 import '../store';
@@ -28,6 +29,7 @@ class App extends Component {
         <div className="AppVisual">
           <Filters />
           <CanvasManager />
+          <DownloadImage />
         </div>
       </div>
     );

@@ -31,16 +31,20 @@ class Filters extends Component {
         return (
             <div>
                 {FILTER_TYPES.map(filterType =>
-                    <div key={filterType.id}>
-                        <label htmlFor={`filters-${filterType.key}`}>{filterType.name} Filter:</label>
-                        <input name={`filters-${filterType.key}`} id={`filters-${filterType.key}`} type="checkbox" checked={this.props.filters[filterType.key].isOn} onChange={this.checkboxChange(filterType)} />
-                        {filterType.hasIntensity ?
-                            (<div>
-                                <label htmlFor={`filters-${filterType.key}-intensity`}>{filterType.name} Intensity:</label>
-                                <input name={`filters-${filterType.key}-intensity`} id={`filters-${filterType.key}-intensity`} type="range" min="0" max="1" step="0.01" value={this.props.filters[filterType.key].intensity} onChange={this.sliderChange(filterType)} />
-                            </div>
-                            ) : ""
-                        }
+                    <div key={filterType.id} className="filters-container">
+                        <div className="filters-row">
+                            <label htmlFor={`filters-${filterType.key}`}>{filterType.name} Filter:</label>
+                            <input name={`filters-${filterType.key}`} id={`filters-${filterType.key}`} type="checkbox" checked={this.props.filters[filterType.key].isOn} onChange={this.checkboxChange(filterType)} />
+                        </div>
+                        <div className="filters-row">
+                            {filterType.hasIntensity ?
+                                (<div>
+                                    <label htmlFor={`filters-${filterType.key}-intensity`}>{filterType.name} Intensity:</label>
+                                    <input name={`filters-${filterType.key}-intensity`} id={`filters-${filterType.key}-intensity`} type="range" min="0" max="1" step="0.01" value={this.props.filters[filterType.key].intensity} onChange={this.sliderChange(filterType)} />
+                                </div>
+                                ) : ""
+                            }
+                        </div>
                     </div>
                 )}
             </div>
