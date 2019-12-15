@@ -22,7 +22,7 @@ class Filters extends Component {
 
         this.sliderChange = (filterType) => (event) => {
             var filters = { ...this.props.filters };
-            filters[filterType.key] = { ...filters[filterType.key], intensity: event.target.value };
+            filters[filterType.key] = { ...filters[filterType.key], intensity: parseFloat(event.target.value) };
             this.props.onFiltersChanges(filters);
         }
     }
@@ -34,8 +34,13 @@ class Filters extends Component {
                     <div key={filterType.id}>
                         <label htmlFor={`filters-${filterType.key}`}>{filterType.name} Filter:</label>
                         <input name={`filters-${filterType.key}`} id={`filters-${filterType.key}`} type="checkbox" checked={this.props.filters[filterType.key].isOn} onChange={this.checkboxChange(filterType)} />
-                        <label htmlFor={`filters-${filterType.key}-intensity`}>{filterType.name} Intensity:</label>
-                        <input name={`filters-${filterType.key}-intensity`} id={`filters-${filterType.key}-intensity`} type="range" min="0" max="1" step="0.01" value={this.props.filters[filterType.key].intensity} onChange={this.sliderChange(filterType)} />
+                        {filterType.hasIntensity ?
+                            (<div>
+                                <label htmlFor={`filters-${filterType.key}-intensity`}>{filterType.name} Intensity:</label>
+                                <input name={`filters-${filterType.key}-intensity`} id={`filters-${filterType.key}-intensity`} type="range" min="0" max="1" step="0.01" value={this.props.filters[filterType.key].intensity} onChange={this.sliderChange(filterType)} />
+                            </div>
+                            ) : ""
+                        }
                     </div>
                 )}
             </div>
