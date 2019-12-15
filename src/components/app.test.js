@@ -18,10 +18,10 @@ describe('App component', () => {
         <App />
       </Provider>));
   });
-/*
-  test('renders learn react link', () => {
-    const linkElement = wrapper.getByText(/learn react/i);
-    expect(linkElement).toBeInTheDocument();
+
+  test('should render input[type="file"] and canvas', () => {
+    expect(wrapper.container.querySelectorAll('input[type="file"]').length).toBeGreaterThan(0);
+    expect(wrapper.container.querySelectorAll('canvas').length).toBeGreaterThan(0);
   });
-  */
+
 });
