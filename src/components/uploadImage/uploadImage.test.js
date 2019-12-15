@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { render, fireEvent, waitForElement } from '@testing-library/react';
 import reducer from './../../reducer';
 
-describe('Upload component', () => {
+describe('Upload Image component', () => {
   const mockStore = configureStore([]);
   let store;
   let wrapper;
