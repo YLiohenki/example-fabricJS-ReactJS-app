@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './canvasManager.css';
 import { connect } from 'react-redux';
 import { fabric } from 'fabric';
-import { saveAs } from 'file-saver';
 import { applyAllFiltersToCanvas } from '../../services/filtersServices';
 
 const mapStateToProps = state => ({ image: state.image, filters: state.filters });
@@ -51,19 +50,6 @@ class CanvasManager extends Component {
 
             applyAllFiltersToCanvas(this.canvas, this.props.filters);
         }
-    }
-
-    saveImage = (dataUrlKey) => (event) => {
-        var data = this.canvas.toDataURL({
-            format: dataUrlKey,
-            quality: 0.98
-        });
-        var saveAsFileName = `NewImage.${dataUrlKey}`;
-        if (this.props.image.filename != null) {
-            var position = this.props.image.filename.lastIndexOf(".");
-            saveAsFileName = "filtered-" + (this.props.image.filename.substr(0, position < 0 ? this.props.image.filename.length : position) + `.${dataUrlKey}`);
-        }
-        saveAs(data, saveAsFileName);
     }
 
     componentDidUpdate = (prevProps) => {
