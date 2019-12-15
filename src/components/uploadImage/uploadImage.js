@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({ image: state.image });
 const mapDispatchToProps = dispatch => ({
-    onUploadImage: file =>
-        dispatch({ type: IMAGE_UPLOAD, payload: { file } })
+    onUploadImage: (file, filename) =>
+        dispatch({ type: IMAGE_UPLOAD, payload: { file, filename } })
 });
 
 class UploadImage extends Component {
@@ -15,9 +15,10 @@ class UploadImage extends Component {
         super();
         this.handleChange = event => {
             event.preventDefault();
+            var fullFilename = event.target.value;
             var reader = new FileReader();
             reader.onload = (readerOnloadEvent) => {
-                this.props.onUploadImage(readerOnloadEvent.target.result);
+                this.props.onUploadImage(readerOnloadEvent.target.result, fullFilename.split(/(\\|\/)/g).pop());
                 this.setState({
                     status: 'Upload Success'
                 })

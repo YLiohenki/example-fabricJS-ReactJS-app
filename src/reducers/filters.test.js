@@ -1,5 +1,4 @@
 import filters from './filters.js';
-import expect from 'expect';
 import { FILTER_CHANGE } from '../constants/actionTypes.js';
 
 describe('filters reducer', () => {

@@ -1,5 +1,4 @@
 import image from './image.js';
-import expect from 'expect';
 import { IMAGE_UPLOAD } from '../constants/actionTypes.js';
 
 describe('photo reducer', () => {

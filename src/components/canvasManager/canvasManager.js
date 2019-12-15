@@ -3,6 +3,8 @@ import './canvasManager.css';
 import { connect } from 'react-redux';
 import { fabric } from 'fabric';
 import { FILTER_TYPES } from '../../constants/filterTypes';
+import { SAVE_TYPES } from '../../constants/saveTypes';
+import { saveAs } from 'file-saver';
 
 const mapStateToProps = state => ({ image: state.image, filters: state.filters });
 const mapDispatchToProps = dispatch => ({});
@@ -32,11 +34,13 @@ class CanvasManager extends Component {
     }
 
     renderAllFilters = () => {
-        FILTER_TYPES.forEach(filterType => {
-            var fabricFilters = fabric.Image.filters;
-            this.applyFilter(filterType.index, this.props.filters[filterType.key].isOn && new fabricFilters[filterType.fabricJSName](), filterType.hasIntensity ? filterType.intensityProperty : null, this.props.filters[filterType.key].intensity);
-        });
-        this.canvas.renderAll();
+        if (this.props.filters != null) {
+            FILTER_TYPES.forEach(filterType => {
+                var fabricFilters = fabric.Image.filters;
+                this.applyFilter(filterType.index, this.props.filters[filterType.key].isOn && new fabricFilters[filterType.fabricJSName](), filterType.hasIntensity ? filterType.intensityProperty : null, this.props.filters[filterType.key].intensity);
+            });
+            this.canvas.renderAll();
+        }
     }
 
     drawImageOnCanvas = () => {
@@ -74,8 +78,17 @@ class CanvasManager extends Component {
         }
     }
 
-    saveImage = (dataUrl) => {
-        window.open(this.canvas.toDataURL('png'));
+    saveImage = (dataUrlKey) => (event) => {
+        var data = this.canvas.toDataURL({
+            format: dataUrlKey,
+            quality: 0.98
+        });
+        var saveAsFileName = `NewImage.${dataUrlKey}`;
+        if (this.props.image.filename != null) {
+            var position = this.props.image.filename.lastIndexOf(".");
+            saveAsFileName = "filtered-" + (this.props.image.filename.substr(0, position < 0 ? this.props.image.filename.length : position) + `.${dataUrlKey}`);
+        }
+        saveAs(data, saveAsFileName);
     }
 
     componentDidUpdate = (prevProps) => {
@@ -96,6 +109,11 @@ class CanvasManager extends Component {
                 <br />
                 <label id="image-render-status">{this.state.status}</label>
                 <br />
+                <div className="save-image-wrapper">
+                    {SAVE_TYPES.map(saveType =>
+                        (<button key={saveType.id} className="save-image-button" onClick={this.saveImage(saveType.dataURLKey)} download="somedata.jpeg">Save as {saveType.name}</button>)
+                    )}
+                </div>
             </div>
         );
     }
