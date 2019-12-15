@@ -7,6 +7,6 @@ export const SAVE_TYPES = [
     {
         name: "JPEG",
         id: "JPEG",
-        dataURLKey: "jpg"
+        dataURLKey: "jpeg"
     }
 ];

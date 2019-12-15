@@ -7,7 +7,8 @@ import {
       case IMAGE_UPLOAD:
         return {
           ...state,
-          file: action.payload.file
+          file: action.payload.file,
+          filename: action.payload.filename
         };
       default:
         return state;

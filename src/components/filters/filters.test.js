@@ -48,7 +48,6 @@ describe('Filters component', () => {
             </Provider>));
 
         expect(new Number(wrapper.getByLabelText('Blur Intensity:').value)).toEqual(0.33);
-        expect(new Number(wrapper.getByLabelText('Sepia Intensity:').value)).toEqual(0.00);
     });
 
     it('should dispatch action on range change', () => {

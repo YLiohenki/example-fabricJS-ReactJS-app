@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { render, waitForElement } from '@testing-library/react';
 import reducer from './../../reducer';
-import { IMAGE_UPLOAD, APP_LOAD } from '../../constants/actionTypes';
+import { APP_LOAD } from '../../constants/actionTypes';
 
 describe('Canvas Manager component', () => {
     const mockStore = configureStore([]);
@@ -12,17 +12,19 @@ describe('Canvas Manager component', () => {
     let wrapper;
     let state;
     let imageOnload = null;
+    let _onload;
 
     let trackImageOnload = () => {
         Object.defineProperty(Image.prototype, 'onload', {
             get: () => {
-                return this._onload;
+                return _onload;
             },
             set: (fn) => {
                 imageOnload = fn;
-                this._onload = fn;
+                _onload = fn;
             },
         });
+        Object.defineProperty(Image.prototype, 'applyFilters', () => { });
     }
 
     beforeEach(() => {
@@ -46,6 +48,10 @@ describe('Canvas Manager component', () => {
     });
 
     it('should render image from store on canvas', async () => {
+        state = {
+            image: { file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAk1BMVEXNMzPLNDXTo5/GOC3PJS/LNC7MNDHJNTXYq6TOMjXLNjDOMy7INTXetLHlvbjLIDHrx7/DIS7RMS/pybrAITHQJSzKMznGNzHINyzTpJrdrqrl/f795ef65tP528v11s7yz8PoycLzur/n5eHsu8G9BCuyJCS+JCrRACrTl57muLG/OSvOLyrQp53etazQIjXU0skJUiQmAAAC3ElEQVR4nO3daY+aQADG8Rm5hEE5lLPXuttW3cVuv/+nK0qtTmKCdiXmGZ5fDMbIMf8wCW8IiE+fv3z99vQUx/G8NevUdT3VTP7ftFddz64wv0Z8ZhGv4sXzi/j+4+d6uUw6kc4eXnRPiWadLJP1Zitek7dSCifQWJqy/bSsmx22umbDYAhl4AVWVolXu2zStFEdxz1Qlzi3uriXy9xeKu2n77NJfVW2hbOkEL70Qo30z8mP8fvJsJ93jfO1Ai+XRbQ7Fh7+7vbTLrpRybsEdokXQqUvtcLTCDz9Z/d182GtMBf7wl+J1QgR6FNCdOv0z52P+nsgca/9Haf8flm6fnqYpVHghp4rzONK6Vj2hIXAWIiPhfiOhXVkqfZ6/OjhDEAr9FmIaDyF0xEUFoYXjmCW2vtCk6+HLMTFQnwsxMdCfCzEx0J8LMTHQnwsxMdCfCzEx0J8LMSnFUqzC0slpffo4QxgPIWV8YUTFsJiIb5TodUWmnw9bAsdFmJiIT4W4mMhPhbiYyE+FuJjIT4W4mMhPhbiYyE+FuJjIT4W4mMhPhbiO7/ry/zCEdy5x0JILMTHQnwsxMdCfCzEx0J8LMTHQnwsxMdCfCzEx0J8LMTHQnwsxDe2wkePZginp86b/lx9vhsB13jOoflvfxhDYaCMfBnSiN5oxUJcLMTHQnwsxMdCfCzEx0J8LMTHQnwsxMdCfCzEx0J8LMTHQnynQscxvdD8c2h+oaPMLpxHTuoZ/WwTFuJiIT4W4mMhPhbiYyE+FuJjIT4W4mMhPhbiYyE+FuJjIT4W4mMhPhbi+1eYBCo0ujBmISwW4mMhPhbiYyE+FuLTC9WjhzOAY+EicZrAKl3zKFcqK6vEKglSL2x7jePKXBTtOVwtPT/P/UcPZwh5LsP3/SwNlBSpYyA/F/tZulhbZVGUloGKsHizK/G8ybIoymzzZPa73Wy24mVbVbtdNTFP21RV299/AGH/jLhAxXQOAAAAAElFTkSuQmCC' },
+            filters: null
+        };
         trackImageOnload();
         wrapper = render(
             (<Provider store={store}>
