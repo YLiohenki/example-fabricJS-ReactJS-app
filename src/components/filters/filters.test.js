@@ -21,7 +21,7 @@ describe('Filters component', () => {
 
 
     it('should render inputs', () => {
-        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false } };
         wrapper = render(
             (<Provider store={store}>
                 <Filters />
@@ -30,7 +30,7 @@ describe('Filters component', () => {
     });
 
     it('should correctly render checkboxes', () => {
-        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false } };
         wrapper = render(
             (<Provider store={store}>
                 <Filters />
@@ -41,7 +41,7 @@ describe('Filters component', () => {
     });
 
     it('should correctly render sliders', () => {
-        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false} };
         wrapper = render(
             (<Provider store={store}>
                 <Filters />
@@ -49,11 +49,10 @@ describe('Filters component', () => {
 
         expect(new Number(wrapper.getByLabelText('Blur Intensity:').value)).toEqual(0.33);
         expect(new Number(wrapper.getByLabelText('Sepia Intensity:').value)).toEqual(0.00);
-        expect(new Number(wrapper.getByLabelText('Vintage Intensity:').value)).toEqual(0.66);
     });
 
     it('should dispatch action on range change', () => {
-        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false } };
         wrapper = render(
             (<Provider store={store}>
                 <Filters />
@@ -65,7 +64,7 @@ describe('Filters component', () => {
     });
 
     it('should dispatch action on range change', () => {
-        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+        state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false } };
         wrapper = render(
             (<Provider store={store}>
                 <Filters />

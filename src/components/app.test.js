@@ -13,7 +13,7 @@ describe('App component', () => {
 
   beforeEach(() => {
     store = mockStore(() => state);
-    state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false, intensity: 0.66 } };
+    state.filters = { blur: { isOn: true, intensity: 0.33 }, sepia: { isOn: false, intensity: 0.00 }, vintage: { isOn: false } };
     wrapper = render(
       (<Provider store={store}>
         <App />
