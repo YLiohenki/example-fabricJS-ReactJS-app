@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import UploadImage from './uploadImage/uploadImage';
 import CanvasManager from './canvasManager/canvasManager';
+import Filters from './filters/filters';
 import '../store';
 import { APP_LOAD } from '../constants/actionTypes';
 import { connect } from 'react-redux';
@@ -24,7 +25,10 @@ class App extends Component {
     return (
       <div className="App">
         <UploadImage />
-        <CanvasManager />
+        <div className="AppVisual">
+          <Filters />
+          <CanvasManager />
+        </div>
       </div>
     );
   }
